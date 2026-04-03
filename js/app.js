@@ -1,5 +1,3 @@
-frontend/js/app.js
-
 let draggedId = null;
 
 const showToast = (msg, type = 'success') => {
@@ -14,6 +12,8 @@ const showToast = (msg, type = 'success') => {
     </div>`;
   setTimeout(() => { const el = document.getElementById(id); if (el) el.remove(); }, 3500);
 };
+
+const escapeHtml = (str) => str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
 const renderTasks = (tasks) => {
   ['todo', 'doing', 'done'].forEach(status => {
@@ -39,8 +39,6 @@ const renderTasks = (tasks) => {
   });
 };
 
-const escapeHtml = (str) => str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
 const cargarTareas = async () => {
   try {
     const tasks = await api.getAll();
@@ -49,6 +47,7 @@ const cargarTareas = async () => {
     showToast('No se pudo conectar con el servidor', 'danger');
   }
 };
+
 const crearTarea = async () => {
   const title = document.getElementById('input-title').value.trim();
   const description = document.getElementById('input-desc').value.trim();
@@ -62,7 +61,7 @@ const crearTarea = async () => {
   if (title.length < 3) {
     showToast('El título debe tener al menos 3 caracteres', 'warning');
     return;
-  }  
+  }
 
   try {
     await api.create({ title, description, status });
@@ -74,9 +73,8 @@ const crearTarea = async () => {
   } catch (err) {
     showToast(err.message, 'danger');
   }
-};  
+};
 
-}
 const eliminarTarea = async (id) => {
   if (!confirm('¿Eliminar esta tarea?')) return;
   try {
