@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, '../data/tasks.json');
+const filePath = path.join(__dirname, '../data/task.json');
 
 const getAll = () => {
     try {
