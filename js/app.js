@@ -50,7 +50,6 @@ const cargarTareas = async () => {
   }
 };
 const crearTarea = async () => {
-
   const title = document.getElementById('input-title').value.trim();
   const description = document.getElementById('input-desc').value.trim();
   const status = document.getElementById('input-status').value;
@@ -60,10 +59,10 @@ const crearTarea = async () => {
     return;
   }
 
-  // Validación extra
   if (title.length < 3) {
     showToast('El título debe tener al menos 3 caracteres', 'warning');
     return;
+  }  
 
   try {
     await api.create({ title, description, status });
@@ -75,7 +74,7 @@ const crearTarea = async () => {
   } catch (err) {
     showToast(err.message, 'danger');
   }
-};
+};  
 
 }
 const eliminarTarea = async (id) => {
