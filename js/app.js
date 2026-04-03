@@ -27,7 +27,7 @@ const renderTasks = (tasks) => {
       card.innerHTML = `
         <div class="d-flex justify-content-between align-items-start">
           <strong>${escapeHtml(task.title)}</strong>
-          <button class="btn btn-sm btn-outline-danger ms-2" onclick="eliminarTarea('${task.id}')">🗑</button>
+          <button class="btn btn-sm btn-outline-danger ms-2" data-task-id="${task.id}" onclick="eliminarTarea(this.dataset.taskId)">🗑</button>
         </div>
         ${task.description ? `<p class="text-muted small mt-1 mb-0">${escapeHtml(task.description)}</p>` : ''}
         <small class="text-muted">${new Date(task.createdAt).toLocaleDateString()}</small>
