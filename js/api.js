@@ -31,24 +31,27 @@ const api = {
   },
 
   update: async (id, data) => {
+  try {
     const res = await fetch(`${API_URL}/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-
     const json = await res.json();
-
     if (!res.ok) throw new Error(json.error || 'Error al actualizar tarea');
-
     return json;
-  },
-
-  remove: async (id) => {
-    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-
-    if (!res.ok) throw new Error('Error al eliminar tarea');
-
-    return res.json();
+  } catch (err) {
+    throw err;
   }
+},
+
+remove: async (id) => {
+  try {
+    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error('Error al eliminar tarea');
+    return res.json();
+  } catch (err) {
+    throw err;
+  }
+}
 };
