@@ -9,8 +9,11 @@ const create = ({ title, description, status }) => {
     const duplicate = tasks.find(t => t.title.toLowerCase() === title.toLowerCase());
     if (duplicate) throw new Error('DUPLICATE');
 
+    const maxId = tasks.reduce((max, task) => Math.max(max, parseInt(task.id)), 0);
+    const newId = (maxId + 1).toString();
+    
     const newTask = {
-    id: Date.now().toString(),
+    id: newId,
     title,
     description,
     status: VALID_STATUSES.includes(status) ? status : 'todo',
